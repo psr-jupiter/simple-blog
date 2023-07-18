@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Blog</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            padding: 15px 30px;
+        }
+        
+        .navbar-brand {
+            color: #000;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .account-info {
+            margin-left: auto;
+        }
+        
+        .account-dropdown-menu {
+            margin-top: 10px;
+        }
+        
+        .articles-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 30px;
+        }
+        
+        .article {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .article-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .article-author {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .article-content {
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .side-panel {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            width: 280px;
+        }
+        
+        .recent-posts {
+            margin-bottom: 30px;
+        }
+        
+        .subscribe-button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .social-media {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .social-media-button {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            color: #000;
+            padding: 8px 15px;
+            margin-bottom: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a class="navbar-brand" href="#">My Blog</a>
+            <div class="account-info">
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Welcome, John Doe
+                    </button>
+                    <div class="dropdown-menu account-dropdown-menu" aria-labelledby="accountDropdown">
+                        <a class="dropdown-item" href="#">Account</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <div class="articles-container">
+        <div class="row">
+            <div class="col-md-8">
+                {% for article in articles %}
+                    <div class="article">
+                        <h2 class="article-title">
+                            <a href="/articles/{{ article.id }}"> {{ article.title }}</a>
+                        </h2>
+                        <div class="article-author">{{ article.author }}</div>
+                        <p class="article-content">{{ article.content }}</p>
+                    </div>
+<!--                    <div class="article">-->
+<!--                        <h2 class="article-title">Article Title 2</h2>-->
+<!--                        <div class="article-author">By Jane Smith</div>-->
+<!--                        <p class="article-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales lacus a nulla rutrum, in tincidunt velit varius.</p>-->
+<!--                    </div>-->
+                {% endfor %}
+                <!-- Add more articles as needed -->
+            </div>
+            
+            <div class="col-md-4 side-panel">
+                <div class="recent-posts">
+                    <h3>Recent Posts</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="#">Article Title 1</a></li>
+                        <li class="list-group-item"><a href="#">Article Title 2</a></li>
+                        <li class="list-group-item"><a href="#">Article Title 3</a></li>
+                    </ul>
+                </div>
+                <div class="social-media">
+                    <h3>Subscribe</h3>
+                    <a href="#" class="btn btn-primary subscribe-button">Subscribe on Facebook</a>
+                    <a href="#" class="btn btn-primary subscribe-button">Subscribe on Twitter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
