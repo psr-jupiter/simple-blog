@@ -50,12 +50,12 @@ def get_db() -> Session:
 
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request, db: Session = Depends(get_db)):
-    # articles = db.query(Article).all()
-    articles = [
-        {"id": 1, "title": "Article 1", "author": "John Doe", "content": "Content of Article 1."},
-        {"id": 2, "title": "Article 2", "author": "Jane Smith", "content": "Content of Article 2."},
-        {"id": 3, "title": "Article 3", "author": "Alice Johnson", "content": "Content of Article 3."},
-    ]
+    articles = db.query(Article).all()
+    # articles = [
+    #     {"id": 1, "title": "Article 1", "author": "John Doe", "content": "Content of Article 1."},
+    #     {"id": 2, "title": "Article 2", "author": "Jane Smith", "content": "Content of Article 2."},
+    #     {"id": 3, "title": "Article 3", "author": "Alice Johnson", "content": "Content of Article 3."},
+    # ]
     return templates.TemplateResponse("index.html", {"request": request, "articles": articles})
 
 
@@ -66,17 +66,17 @@ def get_article(request: Request, article_id: int, db: Session = Depends(get_db)
 
 
 @app.post("/articles/", response_class=HTMLResponse)
-async def create_article(request: Request, db: Session = Depends(get_db)):
-    data = await request.form()
-    print(dict(data))
+def create_article(request: Request, title: str=Form(...), author: str=Form(...), content: str=Form(...),
+                   db: Session = Depends(get_db)):
+    article_data = {'title': title, 'author': author, 'content': content}
     new_article = Article(**article_data)
     db.add(new_article)
     db.commit()
     print("Created article")
-    return templates.TemplateResponse("article_created.html", {"request": request, "article": article})
+    return templates.TemplateResponse("article_created.html", {"request": request, "article": article_data})
 
 
-@app.get("/articles/", response_class=HTMLResponse)
+@app.get("/create/", response_class=HTMLResponse)
 def create_article(request: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse("article_creation.html", {"request": request})
 
